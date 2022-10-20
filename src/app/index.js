@@ -1,20 +1,31 @@
 import React from 'react';
-import { useState } from 'react';
 import getInitialData from '../components/Api/Api';
 import { Table } from 'antd';
-import columns from '../components/utils/tableColumns';
-import { initialData } from '../components/utils/initialData';
+import getColumns from '../components/utils/tableColumns';
 
+import 'antd/dist/antd.css';
 
 export const App = () => {
 
-    const [data, setData] = useState([]);
+    const [data, setData] = React.useState([]);
+    const [columns, setColumns] = React.useState([]);
 
+    // function getTime(start, end){
+    //   return end - start
+    // }
+
+    // function getDay(arr) {
+    //   arr.forEach(element => {
+    //     console.log(element.Days)
+    //   });
+    // }
+
+    
     React.useEffect(() => {
         getInitialData()
         .then((data) => {
             setData(data);
-            console.log(data)
+            setColumns(getColumns(data))
         })
         .catch((err) => {
             console.log(err)
@@ -23,7 +34,7 @@ export const App = () => {
 
     return (
         <>
-        <h1>Hello</h1>
+        <h1>Hello, world!</h1>
         <Table
             columns={columns}
             dataSource={data}
