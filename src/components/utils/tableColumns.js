@@ -9,7 +9,7 @@ function getColumns() {
     };
 
   const daysColumns = [...Array(31).keys()]
-    .map((i) => i + 1)
+    // .map((i) => i + 1)
     .map((eachDay) => ({
       key:'day',  
       title: 'day',
