@@ -19,19 +19,18 @@ export const App = () => {
           // for (let i=1; i<32; i++) {
           //   user[i] = 0;
           // }
-
-          item.Days.forEach((day) => {            
-           const days = getDays(day)
-           user[day.Date] = days;            
+          
+          item.Days.forEach((day) => {  
+           user[getMonth(day.Date)] = getTime(day);            
           });
           return console.log(user) 
       })
       return filteredData
     }
 
-    function getDays(oneDay) {
-        let start = oneDay.Start.split("-");
-        let end = oneDay.End.split("-");
+    function getTime(oneDay) {
+        const start = oneDay.Start.split("-");
+        const end = oneDay.End.split("-");
         const startingTime = new Date(0, 0, 0, start[0], start[1], 0);
         const endingTime = new Date(0, 0, 0, end[0], end[1], 0);
         let diff = endingTime.getTime() - startingTime.getTime();
@@ -40,6 +39,11 @@ export const App = () => {
         const minutes = Math.floor(diff / 1000 / 60);
 
         return `${hours}:${minutes < 10 ? '0' : ''}${minutes}`
+    }
+
+    function getMonth(month) {
+        const newMonth = new Date(month);
+        return newMonth.getDate();
     }
 
 
