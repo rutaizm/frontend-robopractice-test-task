@@ -1,3 +1,5 @@
+import { daysInMonth } from "./constant";
+
 
 function getColumns() {
 
@@ -5,21 +7,21 @@ function getColumns() {
     {
       key:'id',  
       title: 'User',
-      dataIndex: 'Fullname',
+      dataIndex: 'fullname',
     };
 
-  const daysColumns = [...Array(31).keys()]
-    // .map((i) => i + 1)
-    .map((eachDay) => ({
+  const daysColumns = [...Array(daysInMonth).keys()]
+    .map((eachDay, i) => ({
       key:'day',  
-      title: 'day',
-      dataIndex: 'day',
+      title: `${i}`,
+      dataIndex: `${i}`,
     }))
+    daysColumns.shift();
 
   const monthlyTotal = {
       key:'monthlyTotal',  
-      title: 'monthlyTotal',
-      dataIndex: 'monthlyTotal',
+      title: 'Monthly Total',
+      dataIndex: 'total',
   }
 
   return [userColumns, ...daysColumns, monthlyTotal]
