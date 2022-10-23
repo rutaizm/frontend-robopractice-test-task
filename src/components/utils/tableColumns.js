@@ -1,4 +1,5 @@
 import { daysInMonth } from "./constant";
+import formatTotal from "./formatTotal";
 
 
 function getColumns() {
@@ -15,6 +16,11 @@ function getColumns() {
       key:'day',  
       title: `${i}`,
       dataIndex: `${i}`,
+      render:formatTotal,
+      sorter: (a, b) => a[`${i}`] - b[`${i}`],
+      width: 60,
+      align: 'right',
+      sortDirections: ['ascend', 'descend'],
     }))
     daysColumns.shift();
 
@@ -22,6 +28,11 @@ function getColumns() {
       key:'monthlyTotal',  
       title: 'Monthly Total',
       dataIndex: 'total',
+      render:formatTotal,
+      sorter: (a, b) => a.total - b.total,
+      width: 100,
+      align: 'right',
+      sortDirections: ['ascend', 'descend'],
   }
 
   return [userColumns, ...daysColumns, monthlyTotal]

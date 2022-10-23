@@ -11,18 +11,17 @@ export const App = () => {
     const [data, setData] = React.useState([]);
     const [columns, setColumns] = React.useState([]);
 
-
     React.useEffect(() => {
-        getInitialData()
-        .then((data) => {
-            const f = getFilteredData(data);
-            setData(f);
-            const n = getColumns(data)
-            setColumns(n)
-        })
-        .catch((err) => {
-            console.log(err)
-        });
+      getInitialData()
+      .then((data) => {
+          const f = getFilteredData(data);
+          setData(f);
+          const n = getColumns(data)
+          setColumns(n)
+      })
+      .catch((err) => {
+          console.log(err)
+      });
     }, []);
 
     return (
