@@ -1,14 +1,20 @@
 import { daysInMonth } from "./constant";
 import formatTotal from "./formatTotal";
+import getColumnSearchProps from "./search";
 
 
-function getColumns() {
+function getColumns(searchText,setSearchText, searchedColumn, setSearchedColumn,
+  searchInput, handleSearch, handleReset) {
 
   const userColumns = 
     {
       key:'id',  
       title: 'User',
       dataIndex: 'fullname',
+      width: 150,
+      fixed: 'left',
+      ...getColumnSearchProps('fullname', searchText,setSearchText, searchedColumn, setSearchedColumn,
+      searchInput, handleSearch, handleReset),
     };
 
   const daysColumns = [...Array(daysInMonth).keys()]
@@ -18,7 +24,7 @@ function getColumns() {
       dataIndex: `${i}`,
       render:formatTotal,
       sorter: (a, b) => a[`${i}`] - b[`${i}`],
-      width: 60,
+      width: 70,
       align: 'right',
       sortDirections: ['ascend', 'descend'],
     }))
@@ -31,8 +37,9 @@ function getColumns() {
       render:formatTotal,
       sorter: (a, b) => a.total - b.total,
       width: 100,
-      align: 'right',
+      align: 'center',
       sortDirections: ['ascend', 'descend'],
+      fixed:'right'
   }
 
   return [userColumns, ...daysColumns, monthlyTotal]

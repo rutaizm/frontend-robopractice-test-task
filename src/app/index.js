@@ -8,21 +8,40 @@ import 'antd/dist/antd.css';
 
 export const App = () => {
 
-    const [data, setData] = React.useState([]);
+    const [data, setData] = React.useState([]);    
+
+    const [searchText, setSearchText] = React.useState('');
+    const [searchedColumn, setSearchedColumn] = React.useState('');
+    const searchInput = React.useRef(null);
+    const handleSearch = (selectedKeys, confirm, dataIndex) => {
+      confirm();
+      setSearchText(selectedKeys[0]);
+      setSearchedColumn(dataIndex); 
+    }; 
+    const handleReset = (clearFilters) => {
+      clearFilters();
+      setSearchText('');
+    };
+
     const [columns, setColumns] = React.useState([]);
 
     React.useEffect(() => {
       getInitialData()
-      .then((data) => {
-          const f = getFilteredData(data);
+      .then((res) => {
+          const f = getFilteredData(res);
           setData(f);
-          const n = getColumns(data)
-          setColumns(n)
       })
       .catch((err) => {
           console.log(err)
       });
     }, []);
+
+    React.useEffect(() => {
+          setColumns(getColumns(searchText,setSearchText, 
+            searchedColumn, setSearchedColumn,
+            searchInput,handleSearch, handleReset))     
+    }, []);
+
 
     return (
         <>
