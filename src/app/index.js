@@ -28,8 +28,8 @@ export const App = () => {
     React.useEffect(() => {
       getInitialData()
       .then((res) => {
-          const f = getFilteredData(res);
-          setData(f);
+          const newData = getFilteredData(res);
+          setData(newData);
       })
       .catch((err) => {
           console.log(err)
